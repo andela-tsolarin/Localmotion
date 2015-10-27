@@ -1,25 +1,48 @@
 package com.andela.toni.localmotion;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.andela.toni.localmotion.services.LocationTrackingService;
+
 public class MainActivity extends Activity {
 
     private Button btnTrack;
     private Button btnHistory;
+    private FloatingActionButton fabPreference;
+    private boolean started;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        started = false;
         btnTrack = (Button) findViewById(R.id.btnTrack);
         btnHistory = (Button) findViewById(R.id.btnHistory);
+        fabPreference = (FloatingActionButton) findViewById(R.id.fabPreference);
+
+        btnTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (started) {
+                    stopService();
+                    btnTrack.setText("START SERVICE");
+                } else {
+                    startService();
+                    btnTrack.setText("STOP SERVICE");
+                }
+
+                started = !started;
+            }
+        });
 
         btnTrack.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -33,6 +56,13 @@ public class MainActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 showButtonVisualFeedback(btnHistory, event);
+                return false;
+            }
+        });
+
+        fabPreference.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
                 return false;
             }
         });
@@ -62,5 +92,13 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // No action bar item
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startService() {
+        startService(new Intent(getBaseContext(), LocationTrackingService.class));
+    }
+
+    private void stopService() {
+        stopService(new Intent(getBaseContext(), LocationTrackingService.class));
     }
 }
