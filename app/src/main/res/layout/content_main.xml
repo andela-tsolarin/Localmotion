@@ -17,24 +17,34 @@
         android:gravity="center"
         android:layout_centerInParent="true">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Tracking"
-            android:id="@+id/btnTrack"
-            android:width="@dimen/btn_width"
-            android:drawableLeft="@android:drawable/ic_media_play"
-            android:background="@drawable/primary_button"/>
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/map_location"
+            android:layout_marginBottom="35dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View History"
+            android:text="START TRACKING"
+            android:id="@+id/btnTrack"
+            android:width="@dimen/btn_width"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:background="@drawable/primary_button"
+            android:textSize="14dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VIEW HISTORY"
             android:id="@+id/btnHistory"
             android:width="@dimen/btn_width"
             android:background="@drawable/primary_button"
             android:drawableLeft="@android:drawable/ic_menu_recent_history"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:textSize="14dp" />
 
     </LinearLayout>
 </RelativeLayout>
