@@ -9,5 +9,32 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Tracking"
+            android:id="@+id/btnTrack"
+            android:width="@dimen/btn_width"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:background="@drawable/primary_button"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View History"
+            android:id="@+id/btnHistory"
+            android:width="@dimen/btn_width"
+            android:background="@drawable/primary_button"
+            android:drawableLeft="@android:drawable/ic_menu_recent_history"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
 </RelativeLayout>
