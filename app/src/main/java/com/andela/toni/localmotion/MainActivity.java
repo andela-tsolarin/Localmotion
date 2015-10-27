@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.andela.toni.localmotion.operations.ServiceOperations;
 import com.andela.toni.localmotion.services.LocationTrackingService;
 
 public class MainActivity extends Activity {
@@ -17,22 +18,25 @@ public class MainActivity extends Activity {
     private Button btnTrack;
     private Button btnHistory;
     private FloatingActionButton fabPreference;
-    private boolean started;
+    private boolean trackingStarted;
+    private ServiceOperations serviceOperations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        serviceOperations = new ServiceOperations();
 
-        started = false;
+        trackingStarted = serviceOperations.serviceRunning(LocationTrackingService.class.getName(), getApplicationContext());
         btnTrack = (Button) findViewById(R.id.btnTrack);
         btnHistory = (Button) findViewById(R.id.btnHistory);
         fabPreference = (FloatingActionButton) findViewById(R.id.fabPreference);
 
+        btnTrack.setText((trackingStarted) ? "STOP SERVICE" : "START SERVICE");
         btnTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (started) {
+                if (trackingStarted) {
                     stopService();
                     btnTrack.setText("START SERVICE");
                 } else {
@@ -40,7 +44,7 @@ public class MainActivity extends Activity {
                     btnTrack.setText("STOP SERVICE");
                 }
 
-                started = !started;
+                trackingStarted = !trackingStarted;
             }
         });
 

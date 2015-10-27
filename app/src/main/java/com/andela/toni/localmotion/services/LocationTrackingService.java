@@ -10,6 +10,7 @@ import android.widget.Toast;
  * Created by tonie on 10/27/2015.
  */
 public class LocationTrackingService extends Service {
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -30,6 +31,6 @@ public class LocationTrackingService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
     }
 }
