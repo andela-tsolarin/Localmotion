@@ -1,6 +1,7 @@
 package com.andela.toni.localmotion.locationproviders;
 
 import android.content.Context;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -12,6 +13,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationListener;
+
+import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Created by tonie on 10/28/2015.
@@ -82,6 +86,19 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
             mGoogleApiClient.disconnect();
             Toast.makeText(this.context, "Disconnected from Google Play Services", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public String getAddress(double longitude, double latitude) {
+        String address = "No address found for this location";
+        Geocoder geocoder = new Geocoder(this.context, Locale.getDefault());
+        try {
+            address = geocoder.getFromLocation(latitude, longitude, 1).get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return address;
     }
 
     @Override

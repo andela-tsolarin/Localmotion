@@ -6,4 +6,5 @@ package com.andela.toni.localmotion.locationproviders;
 public interface LocationProvider {
     void connect();
     void disconnect();
+    String getAddress(double longitude, double latitude);
 }

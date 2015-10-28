@@ -32,16 +32,16 @@ public class MainActivity extends Activity {
         btnHistory = (Button) findViewById(R.id.btnHistory);
         fabPreference = (FloatingActionButton) findViewById(R.id.fabPreference);
 
-        btnTrack.setText((trackingStarted) ? "STOP SERVICE" : "START SERVICE");
+        btnTrack.setText((trackingStarted) ? "STOP TRACKING" : "START TRACKING");
         btnTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (trackingStarted) {
                     stopService();
-                    btnTrack.setText("START SERVICE");
+                    btnTrack.setText("START TRACKING");
                 } else {
                     startService();
-                    btnTrack.setText("STOP SERVICE");
+                    btnTrack.setText("STOP TRACKING");
                 }
 
                 trackingStarted = !trackingStarted;

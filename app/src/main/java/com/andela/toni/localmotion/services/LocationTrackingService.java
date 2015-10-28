@@ -36,9 +36,10 @@ public class LocationTrackingService extends Service {
         this.locationProvider = new GoogleLocationProvider(this, new LocationCallback() {
             @Override
             public void handleLocationChange(Location location) {
-                Toast.makeText(that, "Latitude:" + location.getLatitude()+", Longitude:"+location.getLongitude(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(that, locationProvider.getAddress(location.getLongitude(), location.getLatitude()), Toast.LENGTH_SHORT).show();
             }
         });
+
         this.locationProvider.connect();
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         return super.onStartCommand(intent, flags, startId);

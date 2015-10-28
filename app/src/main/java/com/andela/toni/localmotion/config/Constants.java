@@ -6,4 +6,5 @@ package com.andela.toni.localmotion.config;
 public class Constants {
     public static final long INTERVAL = 10000;
     public static final long FASTEST_INTERVAL = INTERVAL / 2;
+    public static final double DIFFERENCE_THRESHOLD = 50;
 }
