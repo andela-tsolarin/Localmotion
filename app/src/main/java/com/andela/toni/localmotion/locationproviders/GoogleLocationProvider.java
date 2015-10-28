@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.andela.toni.localmotion.callbacks.LocationCallback;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -20,9 +21,15 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
     private Context context;
+    private LocationCallback callback;
 
-    public GoogleLocationProvider(Context context){
+    public static final long INTERVAL = 10000;
+    public static final long FASTEST_INTERVAL = INTERVAL / 2;
+
+
+    public GoogleLocationProvider(Context context, LocationCallback callback){
         this.context = context;
+        this.callback = callback;
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -36,7 +43,7 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
-            Toast.makeText(this.context, "Latitude:" + mLastLocation.getLatitude()+", Longitude:"+mLastLocation.getLongitude(),Toast.LENGTH_LONG).show();
+            callback.handleLocationChange(mLastLocation);
         }
 
         createLocationRequest();
@@ -44,8 +51,8 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(20000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         startLocationUpdates();
     }
@@ -81,6 +88,6 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(this.context, "Latitude:" + location.getLatitude()+", Longitude:"+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        callback.handleLocationChange(location);
     }
 }

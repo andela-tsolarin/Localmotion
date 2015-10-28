@@ -2,10 +2,12 @@ package com.andela.toni.localmotion.services;
 
 import android.app.Service;
 import android.content.Intent;
+import android.location.Location;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.andela.toni.localmotion.callbacks.LocationCallback;
 import com.andela.toni.localmotion.locationproviders.GoogleLocationProvider;
 import com.andela.toni.localmotion.locationproviders.LocationProvider;
 
@@ -29,7 +31,14 @@ public class LocationTrackingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        this.locationProvider = new GoogleLocationProvider(this);
+
+        final LocationTrackingService that = this;
+        this.locationProvider = new GoogleLocationProvider(this, new LocationCallback() {
+            @Override
+            public void handleLocationChange(Location location) {
+                Toast.makeText(that, "Latitude:" + location.getLatitude()+", Longitude:"+location.getLongitude(), Toast.LENGTH_SHORT).show();
+            }
+        });
         this.locationProvider.connect();
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         return super.onStartCommand(intent, flags, startId);
