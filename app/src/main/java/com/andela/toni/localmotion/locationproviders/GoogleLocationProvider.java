@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.andela.toni.localmotion.callbacks.LocationCallback;
+import com.andela.toni.localmotion.config.Constants;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -22,9 +23,6 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
     private LocationRequest mLocationRequest;
     private Context context;
     private LocationCallback callback;
-
-    public static final long INTERVAL = 10000;
-    public static final long FASTEST_INTERVAL = INTERVAL / 2;
 
 
     public GoogleLocationProvider(Context context, LocationCallback callback){
@@ -51,8 +49,8 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+        mLocationRequest.setInterval(Constants.INTERVAL);
+        mLocationRequest.setFastestInterval(Constants.FASTEST_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         startLocationUpdates();
     }
