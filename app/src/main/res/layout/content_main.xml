@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="false"
         android:gravity="center"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:id="@+id/linearLayout">
 
         <ImageView
             android:layout_width="180dp"
@@ -46,5 +47,18 @@
             android:layout_marginTop="5dp"
             android:textSize="14dp" />
 
+        <SeekBar
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvMinutes"
+            android:layout_marginTop="5dp" />
+
     </LinearLayout>
+
 </RelativeLayout>

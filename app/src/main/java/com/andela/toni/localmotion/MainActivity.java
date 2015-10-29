@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.andela.toni.localmotion.util.ServiceMonitor;
 import com.andela.toni.localmotion.services.LocationTrackingService;
@@ -17,9 +19,10 @@ public class MainActivity extends Activity {
 
     private Button btnTrack;
     private Button btnHistory;
-    private FloatingActionButton fabPreference;
     private boolean trackingStarted;
     private ServiceMonitor serviceMonitor;
+    private SeekBar seekBar;
+    private TextView tvMinutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,8 @@ public class MainActivity extends Activity {
         trackingStarted = serviceMonitor.serviceRunning(LocationTrackingService.class.getName(), getApplicationContext());
         btnTrack = (Button) findViewById(R.id.btnTrack);
         btnHistory = (Button) findViewById(R.id.btnHistory);
-        fabPreference = (FloatingActionButton) findViewById(R.id.fabPreference);
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        tvMinutes = (TextView) findViewById(R.id.tvMinutes);
 
         btnTrack.setText((trackingStarted) ? "STOP TRACKING" : "START TRACKING");
         btnTrack.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +75,31 @@ public class MainActivity extends Activity {
             }
         });
 
-        fabPreference.setOnTouchListener(new View.OnTouchListener() {
+        final int step = 1;
+        int max = 60;
+        final int min = 1;
+        seekBar.setMax((max - min) / step);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressValue;
+
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressValue = progress;
+                tvMinutes.setText(min + (progress * step) + " Minutes");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                tvMinutes.setText(min + (progressValue * step) + " Minutes");
             }
         });
+
+        tvMinutes.setText(seekBar.getProgress()+" Minutes");
     }
 
     private void showButtonVisualFeedback(Button btn, MotionEvent event) {
