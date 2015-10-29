@@ -89,19 +89,6 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
     }
 
     @Override
-    public String getAddress(double longitude, double latitude) {
-        String address = "No address found for this location";
-        Geocoder geocoder = new Geocoder(this.context, Locale.getDefault());
-        try {
-            address = geocoder.getFromLocation(latitude, longitude, 1).get(0).getAddressLine(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return address;
-    }
-
-    @Override
     public void onLocationChanged(Location location) {
         callback.handleLocationChange(location);
     }
