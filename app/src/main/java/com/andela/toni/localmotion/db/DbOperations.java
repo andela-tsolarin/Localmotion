@@ -26,7 +26,7 @@ public class DbOperations extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table locations ( _id integer primary key autoincrement, latitude, " +
-            "longitude, date, address)";
+            "longitude, date, duration, address)";
         db.execSQL(sql);
     }
 
