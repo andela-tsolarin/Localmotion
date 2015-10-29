@@ -58,12 +58,10 @@ public class LocationTrackingService extends Service {
                     distance = that.location.distanceTo(location);
                 } else {
                     that.location = location;
-                    Toast.makeText(that, "Location null. Starting timer", Toast.LENGTH_SHORT).show();
                     initializeTimer();
                 }
 
                 if (distance >= Constants.DIFFERENCE_THRESHOLD) {
-                    Toast.makeText(that, "Significant movement. Restarting timer", Toast.LENGTH_SHORT).show();
                     initializeTimer();
                     that.location = location;
                 }
@@ -84,7 +82,6 @@ public class LocationTrackingService extends Service {
         super.onDestroy();
         this.locationProvider.disconnect();
         this.countDownTimer.cancel();
-        Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
     }
 
     private void initializeTimer() {
@@ -106,7 +103,6 @@ public class LocationTrackingService extends Service {
                 previousTime = presentTime;
 
                 // Save to database
-                Toast.makeText(that, "Saving location to database with duration: " + Long.toString(duration), Toast.LENGTH_SHORT).show();
                 dbOperations.insertRecord(buildLocationRecord());
             }
         }.start();
