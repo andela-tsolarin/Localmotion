@@ -39,6 +39,6 @@ public class DbOperations extends SQLiteOpenHelper {
         contentValues.put("date", record.getDate());
         contentValues.put("address", record.getAddress());
         long result = db.insert("locations", null, contentValues);
-        return result == -1;
+        return !(result == -1);
     }
 }
