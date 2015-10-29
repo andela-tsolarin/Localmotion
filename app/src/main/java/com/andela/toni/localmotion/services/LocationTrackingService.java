@@ -47,8 +47,8 @@ public class LocationTrackingService extends Service {
 
         this.dbOperations = new DbOperations(this);
 
+        previousTime = new Date().getTime();
         final LocationTrackingService that = this;
-        presentTime = new Date().getTime();
         this.locationProvider = new GoogleLocationProvider(this, new LocationCallback() {
             @Override
             public void handleLocationChange(Location location) {
@@ -103,6 +103,7 @@ public class LocationTrackingService extends Service {
             public void onFinish() {
                 presentTime = new Date().getTime();
                 duration = presentTime - previousTime;
+                previousTime = presentTime;
 
                 // Save to database
                 Toast.makeText(that, "Saving location to database with duration: " + Long.toString(duration), Toast.LENGTH_SHORT).show();
@@ -127,8 +128,9 @@ public class LocationTrackingService extends Service {
     private LocationRecord buildLocationRecord() {
         return this.location == null ? new LocationRecord() :
                 new LocationRecord(Double.toString(this.location.getLatitude()),
-                        Double.toString(this.location.getLongitude()), Long.toString(duration),
-                        new SimpleDateFormat("dd/MM/yyyy").format(new Date()), getAddress());
+                        Double.toString(this.location.getLongitude()),
+                        new SimpleDateFormat("dd/MM/yyyy").format(new Date()),
+                        Long.toString(duration), getAddress());
     }
 
 }

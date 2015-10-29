@@ -10,6 +10,8 @@ public class LocationRecord {
     private String date;
     private String duration;
     private String address;
+    private int locationCount;
+    private long averageAddressTime;
 
     public LocationRecord() {
 
@@ -62,5 +64,21 @@ public class LocationRecord {
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public int getLocationCount() {
+        return locationCount;
+    }
+
+    public void setLocationCount(int locationCount) {
+        this.locationCount = locationCount;
+    }
+
+    public long getAverageAddressTime() {
+        return averageAddressTime;
+    }
+
+    public void setAverageAddressTime(long averageAddressTime) {
+        this.averageAddressTime = averageAddressTime;
     }
 }

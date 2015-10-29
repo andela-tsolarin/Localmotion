@@ -60,4 +60,42 @@ public class DbOperations extends SQLiteOpenHelper {
 
         return dates;
     }
+
+    public ArrayList<LocationRecord> getDateLocations(String date) {
+        ArrayList<LocationRecord> locations = new ArrayList<>();
+        Cursor res = db.query("locations", null, "date" + "=?", new String[]{date}, null, null, null);
+        while (res.moveToNext()) {
+            LocationRecord location = new LocationRecord();
+            location.setLatitude(res.getString(res.getColumnIndex("latitude")));
+            location.setLongitude(res.getString(res.getColumnIndex("longitude")));
+            location.setDate(res.getString(res.getColumnIndex("date")));
+            location.setDuration(res.getString(res.getColumnIndex("duration")));
+            location.setAddress(res.getString(res.getColumnIndex("address")));
+            locations.add(location);
+        }
+        return locations;
+    }
+
+    public ArrayList<String> getUniqueAddresses() {
+        ArrayList<String> addresses = new ArrayList<>();
+        try {
+            Cursor cursor = db.query(true, "locations", new String[]{"address"}, null, null, "address", null, null, null);
+            while (cursor.moveToNext()) {
+                addresses.add(cursor.getString(cursor.getColumnIndex("address")));
+            }
+            cursor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return addresses;
+    }
+
+    public long getAverageAddressTime(String address) {
+        Cursor res = db.query("locations", null, "address" + "=?", new String[]{address}, null, null, null);
+        long j = 0;
+        while (res.moveToNext()) {
+            j = j + res.getLong(res.getColumnIndex("duration"));
+        }
+        return j;
+    }
 }
