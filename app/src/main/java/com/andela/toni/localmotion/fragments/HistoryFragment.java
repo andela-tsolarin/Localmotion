@@ -2,11 +2,9 @@ package com.andela.toni.localmotion.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.andela.toni.localmotion.R;
@@ -16,7 +14,6 @@ import com.andela.toni.localmotion.db.DbOperations;
 import com.andela.toni.localmotion.models.LocationRecord;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HistoryFragment extends Fragment {
 
@@ -38,11 +35,19 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Bundle args = getArguments();
-        Log.d("Pos", Integer.toString(args.getInt("index")));
+        int tab = args.getInt("index");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         lvHistory = (ListView) view.findViewById(R.id.lvHistory);
-        lvHistory.setAdapter(getAddressAdapter());
+        switch (tab) {
+            case 0:
+                lvHistory.setAdapter(getDatesAdapter());
+                break;
+            case 1:
+                lvHistory.setAdapter(getAddressAdapter());
+                break;
+        }
+
         return view;
     }
 
