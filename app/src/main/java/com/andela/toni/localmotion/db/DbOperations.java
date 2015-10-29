@@ -2,11 +2,14 @@ package com.andela.toni.localmotion.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.andela.toni.localmotion.config.Constants;
 import com.andela.toni.localmotion.models.LocationRecord;
+
+import java.util.ArrayList;
 
 /**
  * Created by tonie on 10/29/2015.
@@ -40,5 +43,20 @@ public class DbOperations extends SQLiteOpenHelper {
         contentValues.put("address", record.getAddress());
         long result = db.insert("locations", null, contentValues);
         return !(result == -1);
+    }
+
+    public ArrayList<String> getUniqueDates() {
+        ArrayList<String> dates = new ArrayList<>();
+        try {
+            Cursor cursor = db.query(true, "locations", new String[]{"date"}, null, null, "date", null, null, null);
+            while (cursor.moveToNext()) {
+                dates.add(cursor.getString(cursor.getColumnIndex("date")));
+            }
+            cursor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dates;
     }
 }
