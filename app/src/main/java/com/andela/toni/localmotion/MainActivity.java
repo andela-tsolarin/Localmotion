@@ -56,6 +56,13 @@ public class MainActivity extends Activity {
             }
         });
 
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent topCurrenciesIntent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(topCurrenciesIntent);
+            }
+        });
         btnHistory.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
