@@ -37,7 +37,6 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
 
     @Override
     public void onConnected(Bundle bundle) {
-        Toast.makeText(this.context, "Connected to Google Play Services", Toast.LENGTH_LONG).show();
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
@@ -66,7 +65,6 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(this.context, "Failed to connect to Google Play Services", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -80,7 +78,6 @@ public class GoogleLocationProvider implements LocationProvider, GoogleApiClient
     public void disconnect() {
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
-            Toast.makeText(this.context, "Disconnected from Google Play Services", Toast.LENGTH_LONG).show();
         }
     }
 

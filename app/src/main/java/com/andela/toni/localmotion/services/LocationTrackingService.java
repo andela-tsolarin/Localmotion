@@ -2,6 +2,7 @@ package com.andela.toni.localmotion.services;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.CountDownTimer;
@@ -34,6 +35,7 @@ public class LocationTrackingService extends Service {
 
     private long previousTime;
     private long presentTime;
+    private int trackingInterval;
 
     @Nullable
     @Override
@@ -44,6 +46,11 @@ public class LocationTrackingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        trackingInterval = intent.getIntExtra("trackingInterval", 1);
 
         this.dbOperations = new DbOperations(this);
 
@@ -69,11 +76,8 @@ public class LocationTrackingService extends Service {
         });
 
         this.locationProvider.connect();
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-    }
+        Toast.makeText(this, "Tracking your location every " + Integer.toString(trackingInterval) + " minutes", Toast.LENGTH_LONG).show();
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -90,7 +94,7 @@ public class LocationTrackingService extends Service {
         }
 
         final LocationTrackingService that = this;
-        this.countDownTimer = new CountDownTimer(10000, 1000) {
+        this.countDownTimer = new CountDownTimer(trackingInterval, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 

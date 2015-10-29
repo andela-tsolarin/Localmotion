@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
         btnTrack = (Button) findViewById(R.id.btnTrack);
         btnHistory = (Button) findViewById(R.id.btnHistory);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.setProgress(5);
         tvMinutes = (TextView) findViewById(R.id.tvMinutes);
 
         btnTrack.setText((trackingStarted) ? "STOP TRACKING" : "START TRACKING");
@@ -99,7 +100,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        tvMinutes.setText(seekBar.getProgress()+" Minutes");
+        tvMinutes.setText(seekBar.getProgress() + " Minutes");
     }
 
     private void showButtonVisualFeedback(Button btn, MotionEvent event) {
@@ -129,7 +130,9 @@ public class MainActivity extends Activity {
     }
 
     private void startService() {
-        startService(new Intent(getBaseContext(), LocationTrackingService.class));
+        Intent intent = new Intent(getBaseContext(), LocationTrackingService.class);
+        intent.putExtra("trackingInterval", seekBar.getProgress());
+        startService(intent);
     }
 
     private void stopService() {
