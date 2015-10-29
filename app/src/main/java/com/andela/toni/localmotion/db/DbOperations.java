@@ -40,6 +40,7 @@ public class DbOperations extends SQLiteOpenHelper {
         contentValues.put("latitude", record.getLatitude());
         contentValues.put("longitude", record.getLongitude());
         contentValues.put("date", record.getDate());
+        contentValues.put("duration", record.getDuration());
         contentValues.put("address", record.getAddress());
         long result = db.insert("locations", null, contentValues);
         return !(result == -1);

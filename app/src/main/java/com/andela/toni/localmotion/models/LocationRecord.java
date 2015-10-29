@@ -8,16 +8,19 @@ public class LocationRecord {
     private String latitude;
     private String longitude;
     private String date;
+    private String duration;
     private String address;
 
     public LocationRecord() {
 
     }
 
-    public LocationRecord(String latitude, String longitude, String date, String address) {
+    public LocationRecord(String latitude, String longitude,
+                          String date, String duration, String address) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.date = date;
+        this.duration = duration;
         this.address = address;
     }
 
@@ -51,5 +54,13 @@ public class LocationRecord {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 }
