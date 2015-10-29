@@ -32,7 +32,6 @@ public class DbOperations extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
     public boolean insertRecord(LocationRecord record) {
