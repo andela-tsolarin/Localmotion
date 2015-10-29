@@ -1,4 +1,4 @@
-package com.andela.toni.localmotion.operations;
+package com.andela.toni.localmotion.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.Context;
 /**
  * Created by tonie on 10/27/2015.
  */
-public class ServiceOperations {
+public class ServiceMonitor {
 
     public boolean serviceRunning(String serviceName, Context context) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

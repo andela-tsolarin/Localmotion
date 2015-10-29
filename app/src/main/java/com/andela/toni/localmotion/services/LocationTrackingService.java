@@ -7,7 +7,6 @@ import android.location.Location;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.andela.toni.localmotion.callbacks.LocationCallback;
@@ -100,7 +99,6 @@ public class LocationTrackingService extends Service {
                 // Save to database
                 Toast.makeText(that, "Saving location to database", Toast.LENGTH_SHORT).show();
                 boolean result = dbOperations.insertRecord(buildLocationRecord());
-                Log.d("Query result: ", result ? "True" : "False");
             }
         }.start();
     }
